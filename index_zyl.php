@@ -34,7 +34,14 @@ form input{
 	width:80px;
 	float:right;
 	}
-
+a{
+	color:#63F;
+	text-decoration:none;
+	}
+a:hover{
+	text-decoration:underline;
+	font-weight:bold;
+	}
 </style>
 </head>
 <body>
@@ -66,16 +73,17 @@ if(!mysql_query("exists zyl_db" ))
 	FTPname varchar(255),
 	FTPpassword varchar(255),
 	Remark varchar(255),
-	Dateadded date,
-	Dateedited date
+	Dateadded datetime,
+	Dateedited datetime
 	)";
 	
 	mysql_query($sql,$con);
 	mysql_select_db("zyl_db", $con);
+	$date = date('Y-m-d H:i:s');
 	}
 $method =isset($_GET['method'])?$_GET['method']:null;
 switch($method){
-	case 'new':
+	case 'new': //添加域名信息
 	echo '<form method="POST" action="" style="width:500px; height:500px; margin:20px;">
 	 <p><label>域名：</label><input type="text" name="website"></input></p>
 	 <p><label>所属人：</label><input type="text" name="belongs"></input></p>
@@ -89,38 +97,77 @@ switch($method){
 	 <p><input type="submit" class="submit" name="submit" value="添加新域名" /></p>
 	 </form>';
 	if(isset($_POST['submit'])){
-	$sql="INSERT INTO website (Website, Belongs, Username, Nickname, IP, FTPurl, FTPname, FTPpassword, Remark)
+	$sql="INSERT INTO website (Website, Belongs, Username, Nickname, IP, FTPurl, FTPname, FTPpassword, Remark, Dateadded, Dateedited)
 VALUES
-('$_POST[website]','$_POST[belongs]','$_POST[username]','$_POST[username]','$_POST[username]','$_POST[username]','$_POST[nickname]','$_POST[ip]','$_POST[ftpurl]','$_POST[ftpname]','$_POST[ftppassword]','$_POST[remark]')";
+('$_POST[website]','$_POST[belongs]','$_POST[username]','$_POST[nickname]', '$_POST[ip]','$_POST[ftpurl]', '$_POST[ftpname]', '$_POST[ftppassword]', '$_POST[remark]', '$date', '$date')";
 
 if (!mysql_query($sql,$con))
   {
   die('Error: ' . mysql_error());
   }
-echo "域名信息添加成功 " . '<a href="' . $php_file . '">' . "返回首页" . '</a>';
+echo "域名信息添加成功，继续添加或 " . '<a href="' . $php_file . '">' . "返回首页" . '</a>';
 	}
 	break;
-	case 'edit':
+	case 'edit':// 修改域名信息
 	$id = isset($_GET['id'])?$_GET['id']:null;
 	$result = mysql_query("select * from website where ID = $id");
 	while($row = mysql_fetch_array($result))
    { 
-	echo '<form method="POST" action="" style="width:500px; height:500px; margin:20px;">
+	echo '<form method="POST" action="'.$php_file.'?method=add"  style="width:500px; height:500px; margin:20px;">
+	 <p><label>ID：</label><input type="text" name="id" value="' .$row['ID'].'"></input></p>
 	 <p><label>域名：</label><input type="text" name="website" value="' .$row['Website'].'"></input></p>
-	 <p><label>所属人：</label><input type="text" name="belongs"value="' .$row['Website'].'"></input></p>
-	 <p><label>用户名：</label><input type="text" name="username"value="' .$row['Website'].'"></input></p>
-	 <p><label>昵称：</label><input type="text" name="nickname"value="' .$row['Website'].'"></input></p>
-	 <p><label>网站IP：</label><input type="text" name="ip"value="' .$row['Website'].'"></input></p>
-	 <p><label>FTP地址：</label><input type="text" name="ftpurl"value="' .$row['Website'].'"></input></p>
-	 <p><label>FTP用户名：</label><input type="text" name="ftpname"value="' .$row['Website'].'"></input></p>
-	 <p><label>FTP密码：</label><input type="text" name="ftppassword"value="' .$row['Website'].'"></input></p>
-	 <p><label>备注：</label><input type="text" name="remark"value="' .$row['Website'].'"></input></p>
-	 <p><input type="submit" class="submit" name="submit" value="添加新域名" /></p>
+	 <p><label>所属人：</label><input type="text" name="belongs"value="' .$row['Belongs'].'"></input></p>
+	 <p><label>用户名：</label><input type="text" name="username"value="' .$row['Username'].'"></input></p>
+	 <p><label>昵称：</label><input type="text" name="nickname"value="' .$row['Nickname'].'"></input></p>
+	 <p><label>网站IP：</label><input type="text" name="ip"value="' .$row['IP'].'"></input></p>
+	 <p><label>FTP地址：</label><input type="text" name="ftpurl"value="' .$row['FTPurl'].'"></input></p>
+	 <p><label>FTP用户名：</label><input type="text" name="ftpname"value="' .$row['FTPname'].'"></input></p>
+	 <p><label>FTP密码：</label><input type="text" name="ftppassword"value="' .$row['FTPpassword'].'"></input></p>
+	 <p><label>备注：</label><input type="text" name="remark"value="' .$row['Remark'].'"></input></p>
+	 <p><input type="submit" class="submit" name="submit" value="编辑" /></p>
 	 </form>';
-
-  }
+   }
+	break;
+	case 'add';
+	$id = isset($_POST['id'])?$_POST['id']:null;
+	$website = isset($_POST['website'])?$_POST['website']:null;
+	$belongs = isset($_POST['belongs'])?$_POST['belongs']:null;
+	$username = isset($_POST['username'])?$_POST['username']:null;
+	$nickname = isset($_POST['nickname'])?$_POST['nickname']:null;
+	$ip = isset($_POST['ip'])?$_POST['ip']:null;
+	$ftpurl = isset($_POST['ftpurl'])?$_POST['ftpurl']:null;
+	$ftpname = isset($_POST['ftpname'])?$_POST['ftpname']:null;
+	$ftppassword = isset($_POST['ftppassword'])?$_POST['ftppassword']:null;
+	$remark = isset($_POST['remark'])?$_POST['remark']:null;
+	mysql_query("UPDATE website SET Website = '".$website."', Username = '".$username."',Belongs = '".$belongs."',Nickname = '".$nickname."',IP = '".$ip."',FTPurl = '".$ftpurl."',FTPname = '".$ftpname."',FTPpassword = '".$ftppassword."',Remark = '".$remark."' ,Dateedited = '".$date."'WHERE ID = '".$id."'");
+	echo "域名信息修改成功 " . '<a href="' . $php_file . '">' . "返回首页" . '</a>';
 	break;
 	case 'delete':
+	$id = isset($_GET['id'])?$_GET['id']:null;
+	mysql_query("DELETE FROM website WHERE ID='".$id."'");
+	echo "域名信息删除成功 " . '<a href="' . $php_file . '">' . "返回首页" . '</a>';
+	break;
+	case 'more';
+	$id = isset($_GET['id'])?$_GET['id']:null;
+	$result = mysql_query("SELECT * FROM website where ID='".$id."'");
+	echo "<table width='650' border='1'>
+		<tr>
+			<td width='30'>ID</td>
+			<td width='200'>域名</td>
+			<td width='200'>FTP地址</td>
+			<td width='100'>FTP用户名</td>
+			<td width='100'>FTP密码</td>
+		</tr>
+		";
+	while($row = mysql_fetch_array($result))
+		{
+			echo "<tr><td>". $row['ID']."</td>" ;
+			echo "<td>". $row['Website']."</td>" ;
+			echo "<td>" . $row['FTPurl']."</td>"  ;
+			echo "<td>" . $row['FTPname']."</td>"  ;
+			echo "<td>". $row['FTPpassword']."</td></tr>"  ;
+		}
+		echo '</table><p><a href="' . $php_file . '">' . "返回首页" . '</a></p>';
 	break;
 	default:
 	// echo table	
@@ -152,11 +199,11 @@ echo "域名信息添加成功 " . '<a href="' . $php_file . '">' . "返回首�
 		 echo "<td>" . $row['Username'] . "</td>";
 		 echo "<td>" . $row['Nickname'] . "</td>";
 		 echo "<td>" . $row['IP'] . "</td>";
-		 echo "<td> 点击查看 </td>";
+		 echo '<td> <a href="'.$php_file.'?method=more&id=' . $row['ID']. '">点击查看</a> </td>';
 		 echo "<td>" . $row['Remark'] . "</td>";
 		 echo "<td>" . $row['Dateadded'] . "</td>";
 		 echo "<td>" . $row['Dateedited'] . "</td>";
-		 echo '<td><a href="'.$php_file.'?method=edit&id=' . $row['ID']. '">编辑</a> / <a href="' .$php_file.'?method=delete&id=' . $row['ID']. '">编辑</a></td></tr>';
+		 echo '<td><a href="'.$php_file.'?method=edit&id=' . $row['ID']. '">编辑</a> / <a href="' .$php_file.'?method=delete&id=' . $row['ID']. '">删除</a></td></tr>';
 		 }
 	echo "
 		</table>";
