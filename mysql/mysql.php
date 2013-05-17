@@ -13,7 +13,7 @@ switch($method){
 		manage_page('edit');
 		break;
 	case 'delete':
-		$postid = isset($_POST['postid'])?$_POST['postid']:null;
+		$postid = isset($_GET['postid'])?$_GET['postid']:null;
 		$conn = mysql_connect("localhost","root","");
 		mysql_select_db("test", $conn);
 		if(mysql_query("DELETE FROM `domain` WHERE `postid`=".$postid)){
