@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * 公共文件，程序中的其它文件都会加载此文件
  * 定义一些常量及加载一些必备的文件，你需要了解变量的作用域
@@ -8,6 +8,12 @@ header("Content-Type:text/html; charset=utf-8");
 error_reporting() === E_ALL & ~E_NOTICE or error_reporting(E_ALL & ~E_NOTICE);
 // 定义项目物理跟路径
 define('ABS_PATH',dirname(__FILE__));
+// 严重错误，停止程序
+define('E_SYS_ERROR',10);
+// 警告错误，不停止程序
+define('E_SYS_WARNING',20);
+// 提示错误，不停止程序
+define('E_SYS_NOTICE',40);
 
 // 公共函数库， 以后可以把此文件放到一个名为functions.php的文件里
 // include ABS_PATH.'/functions.php';
@@ -41,7 +47,7 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
 {
 	$string  = $file = null;
 	//debug_backtrace 可以回溯跟踪函数的调用信息,用于调试信息
-	$backtrace = array_reverse(debug_backtrace());
+	$traces	 = array_reverse(debug_backtrace());
 	$error   = $traces[0]; unset($traces[0]);
     $errfile = $errfile ? $errfile : $error['file'];
     $errline = $errline ? $errline : $error['line'];
@@ -78,10 +84,10 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
 	}
 	
 	//var_export函数返回关于传递给该函数的变量的结构信息，它和 var_dump() 类似，不同的是其返回的表示是合法的 PHP 代码。
-	$context = var_export($errcontext, TRUE);
+	//$context = var_export($errcontext, TRUE);
     $log = "[Message]:\r\n\t{$errstr}\r\n";
     $log.= "[File]:\r\n\t{$errfile} ({$errline})\r\n";
-    $log.= $context?"[Context]:\r\n{$context}\r\n":'';
+    //$log.= $context?"[Context]:\r\n{$context}\r\n":'';
 	$log.= $string?"[Trace]:\r\n{$string}\r\n":'';
     // 记录日志
     error_log($log, 3, ABS_PATH.'/error.log');
@@ -107,9 +113,9 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
     } else {
         $err = 'CAUGHT EXCEPTION';
     }
-	$log = $err.'\r\n'.$log;
+	$log = $err."\r\n".$log;
     switch ($errno) {
-        case E_ERROR:
+        case E_SYS_ERROR:
             // 格式化为HTML
             $html = str_replace("\t",str_repeat('&nbsp; ',2),nl2br(esc_html($log)));
             // 格式化成HTML完成页面
@@ -117,14 +123,16 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
             // 输出错误信息，并停止程序
             echo $html; exit();
             break;
-        case E_WARNING: case E_NOTICE:
+        case E_WARNING: case E_SYS_NOTICE:
 			// 格式化为HTML
 			$html = str_replace("\t",str_repeat('&nbsp; ',2),nl2br(esc_html($log)));
 			// 格式化成HTML完成页面
 			$html = error_page('系统错误',$html,true);
             echo $html;
             break;
-        default: break;
+        default:
+			//系统默认的错误是不显示的，你可以设置在前台显示
+			break;
     }
 } // end throw_error
 
