@@ -1,25 +1,25 @@
-<?php
+ï»¿<?php
 /**
- * ¹«¹²ÎÄ¼ş£¬³ÌĞòÖĞµÄÆäËüÎÄ¼ş¶¼»á¼ÓÔØ´ËÎÄ¼ş
- * ¶¨ÒåÒ»Ğ©³£Á¿¼°¼ÓÔØÒ»Ğ©±Ø±¸µÄÎÄ¼ş£¬ÄãĞèÒªÁË½â±äÁ¿µÄ×÷ÓÃÓò
+ * å…¬å…±æ–‡ä»¶ï¼Œç¨‹åºä¸­çš„å…¶å®ƒæ–‡ä»¶éƒ½ä¼šåŠ è½½æ­¤æ–‡ä»¶
+ * å®šä¹‰ä¸€äº›å¸¸é‡åŠåŠ è½½ä¸€äº›å¿…å¤‡çš„æ–‡ä»¶ï¼Œä½ éœ€è¦äº†è§£å˜é‡çš„ä½œç”¨åŸŸ
  */
 header("Content-Type:text/html; charset=utf-8");
-// ÉèÖÃ´íÎóµÈ¼¶
+// è®¾ç½®é”™è¯¯ç­‰çº§
 error_reporting() === E_ALL & ~E_NOTICE or error_reporting(E_ALL & ~E_NOTICE);
-// ¶¨ÒåÏîÄ¿ÎïÀí¸úÂ·¾¶
+// å®šä¹‰é¡¹ç›®ç‰©ç†è·Ÿè·¯å¾„
 define('ABS_PATH',dirname(__FILE__));
 
-// ¹«¹²º¯Êı¿â£¬ ÒÔºó¿ÉÒÔ°Ñ´ËÎÄ¼ş·Åµ½Ò»¸öÃûÎªfunctions.phpµÄÎÄ¼şÀï
+// å…¬å…±å‡½æ•°åº“ï¼Œ ä»¥åå¯ä»¥æŠŠæ­¤æ–‡ä»¶æ”¾åˆ°ä¸€ä¸ªåä¸ºfunctions.phpçš„æ–‡ä»¶é‡Œ
 // include ABS_PATH.'/functions.php';
-// =======º¯Êı¿ªÊ¼=========
+// =======å‡½æ•°å¼€å§‹=========
 
 /**
- * ×Ô¶¨Òå´íÎó´¦Àí
- * @param   int	 $errno		±ØĞè¡£ÎªÓÃ»§¶¨ÒåµÄ´íÎó¹æ¶¨´íÎó±¨¸æ¼¶±ğ¡£±ØĞëÊÇÒ»¸öÖµÊı¡£
- * @return  $errstr			±ØĞè¡£ÎªÓÃ»§¶¨ÒåµÄ´íÎó¹æ¶¨´íÎóÏûÏ¢¡£
- * @access  $errfile		¿ÉÑ¡¡£¹æ¶¨´íÎóÔÚÆäÖĞ·¢ÉúµÄÎÄ¼şÃû¡£
- * @param	int $errline	¿ÉÑ¡¡£¹æ¶¨´íÎó·¢ÉúµÄĞĞºÅ¡£
- * @param	array $errcontext	¿ÉÑ¡¡£¹æ¶¨Ò»¸öÊı×é£¬°üº¬ÁËµ±´íÎó·¢ÉúÊ±ÔÚÓÃµÄÃ¿¸ö±äÁ¿ÒÔ¼°ËüÃÇµÄÖµ¡£
+ * è‡ªå®šä¹‰é”™è¯¯å¤„ç†
+ * @param   int	 $errno		å¿…éœ€ã€‚ä¸ºç”¨æˆ·å®šä¹‰çš„é”™è¯¯è§„å®šé”™è¯¯æŠ¥å‘Šçº§åˆ«ã€‚å¿…é¡»æ˜¯ä¸€ä¸ªå€¼æ•°ã€‚
+ * @return  $errstr			å¿…éœ€ã€‚ä¸ºç”¨æˆ·å®šä¹‰çš„é”™è¯¯è§„å®šé”™è¯¯æ¶ˆæ¯ã€‚
+ * @access  $errfile		å¯é€‰ã€‚è§„å®šé”™è¯¯åœ¨å…¶ä¸­å‘ç”Ÿçš„æ–‡ä»¶åã€‚
+ * @param	int $errline	å¯é€‰ã€‚è§„å®šé”™è¯¯å‘ç”Ÿçš„è¡Œå·ã€‚
+ * @param	array $errcontext	å¯é€‰ã€‚è§„å®šä¸€ä¸ªæ•°ç»„ï¼ŒåŒ…å«äº†å½“é”™è¯¯å‘ç”Ÿæ—¶åœ¨ç”¨çš„æ¯ä¸ªå˜é‡ä»¥åŠå®ƒä»¬çš„å€¼ã€‚
  * @static  makes the class property accessible without needing an instantiation of the class
  */
 function handler_error($errno,$errstr,$errfile,$errline,$errcontext)
@@ -30,24 +30,24 @@ function handler_error($errno,$errstr,$errfile,$errline,$errcontext)
 
 
 /**
- * ´íÎó´¦Àïº¯Êı
+ * é”™è¯¯å¤„é‡Œå‡½æ•°
  *
- * @param  $errstr          ´íÎóÏûÏ¢
- * @param int $errno        Òì³£ÀàĞÍ
+ * @param  $errstr          é”™è¯¯æ¶ˆæ¯
+ * @param int $errno        å¼‚å¸¸ç±»å‹
  * @return bool
  * http://php.net/manual/en/function.set-error-handler.php
  */
 function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontext=array())
 {
 	$string  = $file = null;
-	//debug_backtrace ¿ÉÒÔ»ØËİ¸ú×Ùº¯ÊıµÄµ÷ÓÃĞÅÏ¢,ÓÃÓÚµ÷ÊÔĞÅÏ¢
+	//debug_backtrace å¯ä»¥å›æº¯è·Ÿè¸ªå‡½æ•°çš„è°ƒç”¨ä¿¡æ¯,ç”¨äºè°ƒè¯•ä¿¡æ¯
 	$backtrace = array_reverse(debug_backtrace());
 	$error   = $traces[0]; unset($traces[0]);
     $errfile = $errfile ? $errfile : $error['file'];
     $errline = $errline ? $errline : $error['line'];
-	//Èç¹ûÉèÖÃ²»ÏÔÊ¾´íÎó±ãÍ£Ö¹Êä³ö
+	//å¦‚æœè®¾ç½®ä¸æ˜¾ç¤ºé”™è¯¯ä¾¿åœæ­¢è¾“å‡º
 	if (error_reporting() === 0) return false;
-	//ÏÔÊ¾¸ú×ÙµÄĞÅÏ¢
+	//æ˜¾ç¤ºè·Ÿè¸ªçš„ä¿¡æ¯
 	foreach($traces as $i=>$trace) {
 		$file  = isset($trace['file']) ? $trace['file'] : $file;
 		$line  = isset($trace['line']) ? $trace['line'] : null;
@@ -77,15 +77,15 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
         $string.=")\r\n";
 	}
 	
-	//var_exportº¯Êı·µ»Ø¹ØÓÚ´«µİ¸ø¸Ãº¯ÊıµÄ±äÁ¿µÄ½á¹¹ĞÅÏ¢£¬ËüºÍ var_dump() ÀàËÆ£¬²»Í¬µÄÊÇÆä·µ»ØµÄ±íÊ¾ÊÇºÏ·¨µÄ PHP ´úÂë¡£
+	//var_exportå‡½æ•°è¿”å›å…³äºä¼ é€’ç»™è¯¥å‡½æ•°çš„å˜é‡çš„ç»“æ„ä¿¡æ¯ï¼Œå®ƒå’Œ var_dump() ç±»ä¼¼ï¼Œä¸åŒçš„æ˜¯å…¶è¿”å›çš„è¡¨ç¤ºæ˜¯åˆæ³•çš„ PHP ä»£ç ã€‚
 	$context = var_export($errcontext, TRUE);
     $log = "[Message]:\r\n\t{$errstr}\r\n";
     $log.= "[File]:\r\n\t{$errfile} ({$errline})\r\n";
     $log.= $context?"[Context]:\r\n{$context}\r\n":'';
 	$log.= $string?"[Trace]:\r\n{$string}\r\n":'';
-    // ¼ÇÂ¼ÈÕÖ¾
+    // è®°å½•æ—¥å¿—
     error_log($log, 3, ABS_PATH.'/error.log');
-	// ´¦Àï´íÎó
+	// å¤„é‡Œé”™è¯¯
 	$errorType = array (
                E_ERROR			=> 'ERROR',
                E_WARNING        => 'WARNING',
@@ -110,18 +110,18 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
 	$log = $err.'\r\n'.$log;
     switch ($errno) {
         case E_ERROR:
-            // ¸ñÊ½»¯ÎªHTML
+            // æ ¼å¼åŒ–ä¸ºHTML
             $html = str_replace("\t",str_repeat('&nbsp; ',2),nl2br(esc_html($log)));
-            // ¸ñÊ½»¯³ÉHTMLÍê³ÉÒ³Ãæ
-            $html = error_page('ÏµÍ³´íÎó',$html,true);
-            // Êä³ö´íÎóĞÅÏ¢£¬²¢Í£Ö¹³ÌĞò
+            // æ ¼å¼åŒ–æˆHTMLå®Œæˆé¡µé¢
+            $html = error_page('ç³»ç»Ÿé”™è¯¯',$html,true);
+            // è¾“å‡ºé”™è¯¯ä¿¡æ¯ï¼Œå¹¶åœæ­¢ç¨‹åº
             echo $html; exit();
             break;
         case E_WARNING: case E_NOTICE:
-			// ¸ñÊ½»¯ÎªHTML
+			// æ ¼å¼åŒ–ä¸ºHTML
 			$html = str_replace("\t",str_repeat('&nbsp; ',2),nl2br(esc_html($log)));
-			// ¸ñÊ½»¯³ÉHTMLÍê³ÉÒ³Ãæ
-			$html = error_page('ÏµÍ³´íÎó',$html,true);
+			// æ ¼å¼åŒ–æˆHTMLå®Œæˆé¡µé¢
+			$html = error_page('ç³»ç»Ÿé”™è¯¯',$html,true);
             echo $html;
             break;
         default: break;
@@ -129,11 +129,11 @@ function throw_error($errstr,$errno=E_NOTICE,$errfile=null,$errline=0,$errcontex
 } // end throw_error
 
 /**
- * ´íÎóÒ³Ãæ
+ * é”™è¯¯é¡µé¢
  *
  * @param string $title
  * @param string $content
- * @param bool $is_full     ÊÇ·ñÊä³öÍêÕûÒ³Ãæ
+ * @param bool $is_full     æ˜¯å¦è¾“å‡ºå®Œæ•´é¡µé¢
  * @return string
  */
 function error_page($title,$content,$is_full=false) {
@@ -154,7 +154,7 @@ function error_page($title,$content,$is_full=false) {
     $page = '<div id="error-page" class="alert alert-error">';
     $page.= '<div id="error-title"><h1>'.$title.'</h1></div>';
     $page.= '<div id="error-content">'.$content.'</div>';
-    $page.= '<div id="error-buttons"><button type="button" onclick="window.history.back();">·µ»Ø</button></div>';
+    $page.= '<div id="error-buttons"><button type="button" onclick="window.history.back();">è¿”å›</button></div>';
     $page.= '</div>';
 
     if ($is_full) {
@@ -169,7 +169,7 @@ function error_page($title,$content,$is_full=false) {
     return $hl;
 }
 /**
- * ×ª»»ÌØÊâ×Ö·ûÎªHTMLÊµÌå
+ * è½¬æ¢ç‰¹æ®Šå­—ç¬¦ä¸ºHTMLå®ä½“
  *
  * @param   string $str
  * @return  string
@@ -191,6 +191,6 @@ function esc_html($str){
 }
 
 
-// ´¦Àí´íÎó
+// å¤„ç†é”™è¯¯
 set_error_handler('handler_error');
 ?>

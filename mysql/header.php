@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+๏ปฟ<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -32,12 +32,12 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			  </button>
-			  <a class="brand" href="#">ำ๒ร๛นÜภํฯตอณ</a>
+			  <a class="brand" href="#">ๅๅ็ฎก็็ณป็ป</a>
 			  <div class="nav-collapse collapse">
 				<ul class="nav">
-				  <li class="active"><a href="<?php echo $php_file;?>">สืาณ</a></li>
-				  <li><a href="<?php echo $php_file.'?method=new';?>">ฬํผำ</a></li>
-				  <li><a href="#contact">นุำฺ</a></li>
+				  <li class="active"><a href="<?php echo $php_file;?>">้ฆ–้กต</a></li>
+				  <li><a href="<?php echo $php_file.'?method=new';?>">ๆทปๅ </a></li>
+				  <li><a href="#contact">ๅ…ณไบ</a></li>
 				</ul>
 			  </div><!--/.nav-collapse -->
 			</div>

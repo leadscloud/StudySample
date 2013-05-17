@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $php_file = basename(__FILE__);
 // 加载公共文件
 include dirname(__FILE__).'/global.php';
