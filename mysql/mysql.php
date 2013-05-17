@@ -16,7 +16,7 @@ switch($method){
 		$postid = isset($_POST['postid'])?$_POST['postid']:null;
 		$conn = mysql_connect("localhost","root","");
 		mysql_select_db("test", $conn);
-		if(mysql_query("DELETE FROM `domain` WHRER `postid`=".$postid)){
+		if(mysql_query("DELETE FROM `domain` WHERE `postid`=".$postid)){
 			//删除成功，显示你想显示的html页面。
 			echo '删除成功。';
 		}else{
@@ -161,19 +161,19 @@ function manage_page($action){
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">IP地址</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$ip.'" placeholder="IP地址" class="input-xlarge">';
+	echo           '<input type="text" name="ip" value="'.$ip.'" placeholder="IP地址" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">所属人</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$name.'" placeholder="所属人" class="input-xlarge">';
+	echo           '<input type="text" name="name" value="'.$name.'" placeholder="所属人" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">昵称</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$nickname.'" placeholder="昵称" class="input-xlarge">';
+	echo           '<input type="text" name="nickname" value="'.$nickname.'" placeholder="昵称" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo     '</div>';
@@ -182,19 +182,19 @@ function manage_page($action){
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">FTP地址</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$ftphost.'" placeholder="FTP地址" class="input-xlarge">';
+	echo           '<input type="text" name="ftphost" value="'.$ftphost.'" placeholder="FTP地址" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">FTP用户名</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$ftpuser.'" placeholder="FTP用户名" class="input-xlarge">';
+	echo           '<input type="text" name="ftpuser" value="'.$ftpuser.'" placeholder="FTP用户名" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">FTP密码</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$ftppass.'" placeholder="FTP密码" class="input-xlarge">';
+	echo           '<input type="text" name="ftppass" value="'.$ftppass.'" placeholder="FTP密码" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo     '</div>';
@@ -203,19 +203,19 @@ function manage_page($action){
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">添加日期</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$datetime.'" placeholder="添加日期" class="input-xlarge">';
+	echo           '<input type="text" name="datetime" value="'.$datetime.'" placeholder="添加日期" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">修改日期</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$edittime.'" placeholder="修改日期" class="input-xlarge">';
+	echo           '<input type="text" name="edittime" value="'.$edittime.'" placeholder="修改日期" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo       '<div class="control-group">';
 	echo         '<label class="control-label" for="input01">备注</label>';
 	echo         '<div class="controls">';
-	echo           '<input type="text" name="domain" value="'.$note.'" placeholder="备注" class="input-xlarge">';
+	echo           '<input type="text" name="note" value="'.$note.'" placeholder="备注" class="input-xlarge">';
 	echo         '</div>';
 	echo       '</div>';
 	echo     '</div>';
