@@ -17,4 +17,4 @@ Markdown语法：<http://wowubuntu.com/markdown>
 
 ### 附注
 
-By @Ray - [twitter.com/riku](http://love4026.org)
+By @Ray - [blog](http://www.love4026.org)
